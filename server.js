@@ -25,7 +25,7 @@ app.get("/search", async (request, response) => {
     let result = await collection
       .aggregate([
         {
-          $Search: {
+          $search: {
             autocomplete: {
               query: `${request.query.query}`,
               path: "title",
@@ -46,7 +46,7 @@ app.get("/search", async (request, response) => {
 
 app.get("/get/:id", async (request, response) => {
   try {
-    let result = await collection.findOne({ id: ObjectId(request.params.id) });
+    let result = await collection.findOne({ _id: ObjectId(request.params.id) });
     response.send(result);
   } catch (error) {
     response.status(500).send({ message: error.message });
